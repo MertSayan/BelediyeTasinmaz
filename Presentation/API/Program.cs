@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using Persistence.Context;
+
 namespace API
 {
     public class Program
@@ -8,6 +11,15 @@ namespace API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            builder.Services.AddDbContext<HobiContext>(options =>
+               options.UseSqlServer(connectionString));
+
+
+            builder.Services.AddScoped<HobiContext>();
+
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
