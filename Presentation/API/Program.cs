@@ -1,6 +1,9 @@
-
+using Application.Features.MediatR.Users.Commands;
+using Application.Features.MediatR.Users.Handlers.Write;
+using Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Context;
+using Persistence.Repositories;
 
 namespace API
 {
@@ -13,11 +16,19 @@ namespace API
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+
             builder.Services.AddDbContext<HobiContext>(options =>
                options.UseSqlServer(connectionString));
 
+            builder.Services.AddMediatR(cfg =>
+            cfg.RegisterServicesFromAssembly(typeof(CreateUserCommand).Assembly));
+
+            builder.Services.Configure<DefaultUserSettings>(builder.Configuration.GetSection("DefaultUserSettings"));
+
+            
 
             builder.Services.AddScoped<HobiContext>();
+            builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
 
 
 
