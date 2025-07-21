@@ -1,6 +1,8 @@
 using Application.Features.MediatR.Users.Commands;
 using Application.Interfaces;
 using Application.Interfaces.TokenInterface;
+using Application.MapperProfiles;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Persistence.Context;
@@ -52,6 +54,7 @@ namespace API
 
 
 
+
             builder.Services.AddControllers();
             builder.Services.AddAuthorization();
 
@@ -59,6 +62,7 @@ namespace API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddAutoMapper(typeof(PropertyProfile).Assembly);
 
 
             var app = builder.Build();

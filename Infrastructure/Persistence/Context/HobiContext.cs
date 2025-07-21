@@ -30,6 +30,14 @@ namespace Persistence.Context
             .WithMany(u => u.PropertiesCreated)
             .HasForeignKey(p => p.CreatedByUserId)
             .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Property>()
+            .Property(p => p.Type)
+            .HasConversion<string>();
+
+            modelBuilder.Entity<Property>()
+            .Property(p => p.Status)
+            .HasConversion<string>();
         }
 
     }
