@@ -24,5 +24,11 @@ namespace API.Controllers
             await _mediator.Send(command);
             return Ok(Messages<Property>.EntityAdded);
         }
+        [HttpPut]
+        public async Task<IActionResult> UpdateProperty(UpdatePropertyCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok(Messages<Property>.EntityUpdated);
+        }
     }
 }

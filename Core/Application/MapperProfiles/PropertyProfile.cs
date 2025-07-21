@@ -9,6 +9,7 @@ namespace Application.MapperProfiles
         public PropertyProfile()
         {
             CreateMap<Property, CreatePropertyCommand>().ReverseMap();
+            CreateMap<Property, UpdatePropertyCommand>().ReverseMap();
         }
     }
 }

@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Application.Features.MediatR.Properties.Handlers.Write
 {
-    public class CreatePropertyCommandHandler : IRequestHandler<CreatePropertyCommand, string>
+    public class CreatePropertyCommandHandler : IRequestHandler<CreatePropertyCommand, Unit>
     {
         private readonly IRepository<Property> _repository;
         private readonly IMapper _mapper;
@@ -17,11 +17,12 @@ namespace Application.Features.MediatR.Properties.Handlers.Write
             _mapper = mapper;
         }
 
-        public async Task<string> Handle(CreatePropertyCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreatePropertyCommand request, CancellationToken cancellationToken)
         {
             var property=_mapper.Map<Property>(request);
+            property.CreatedAt = DateTime.Now;
             await _repository.AddAsync(property);
-            return property.Name;
+            return Unit.Value;
         }
     }
 }
