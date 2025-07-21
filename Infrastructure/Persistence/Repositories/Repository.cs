@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.Constans;
+using Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Context;
 
@@ -45,7 +46,7 @@ namespace Persistence.Repositories
             {
                 return entity;
             }
-            throw new Exception();
+            throw new Exception(Messages<T>.EntityNotFound);
         }
 
         public async Task UpdateAsync(T entity)
