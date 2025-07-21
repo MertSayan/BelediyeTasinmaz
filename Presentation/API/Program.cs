@@ -1,9 +1,12 @@
 using Application.Features.MediatR.Users.Commands;
-using Application.Features.MediatR.Users.Handlers.Write;
 using Application.Interfaces;
+using Application.Interfaces.TokenInterface;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Persistence.Context;
 using Persistence.Repositories;
+using Persistence.Repositories.TokenRepository;
+using System.Text;
 
 namespace API
 {
@@ -20,6 +23,22 @@ namespace API
             builder.Services.AddDbContext<HobiContext>(options =>
                options.UseSqlServer(connectionString));
 
+            builder.Services.AddAuthentication("Bearer")
+           .AddJwtBearer("Bearer", options =>
+           {
+               options.TokenValidationParameters = new TokenValidationParameters
+               {
+                   ValidateIssuer = true,
+                   ValidateAudience = true,
+                   ValidateLifetime = true,
+                   ValidateIssuerSigningKey = true,
+                   ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+                   ValidAudience = builder.Configuration["JwtSettings:Audience"],
+                   IssuerSigningKey = new SymmetricSecurityKey(
+                       Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]))
+               };
+           });
+
             builder.Services.AddMediatR(cfg =>
             cfg.RegisterServicesFromAssembly(typeof(CreateUserCommand).Assembly));
 
@@ -29,13 +48,18 @@ namespace API
 
             builder.Services.AddScoped<HobiContext>();
             builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
+            builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 
 
 
             builder.Services.AddControllers();
+            builder.Services.AddAuthorization();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+
 
             var app = builder.Build();
 
@@ -47,7 +71,7 @@ namespace API
             }
 
             app.UseHttpsRedirection();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

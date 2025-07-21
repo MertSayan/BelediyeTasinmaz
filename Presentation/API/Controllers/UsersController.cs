@@ -18,11 +18,17 @@ namespace API.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<IActionResult> CreateUser(CreateUserCommand command)
         {
             await _mediator.Send(command);
             return Ok(Messages<User>.EntityAdded);
+        }
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(LoginCommand command)
+        {
+            var token = await _mediator.Send(command);
+            return Ok(new { token });
         }
     }
 }

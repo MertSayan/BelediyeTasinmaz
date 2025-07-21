@@ -18,5 +18,6 @@ namespace Application.Constans
         public static string EntityNameDuplicated => $"Bu isme sahip bir {EntityName} nesnesi zaten var, lütfen ismini değiştirin";
         public static string EntityCantMatches => $"Email veya sifre uyusmuyor";
         public static string EntityCantGet => $"{EntityName} alanına ait veri bulunamadı.";
+        public static string PasswordNotCorrect => $"Şifre Hatalı";
     }
 }

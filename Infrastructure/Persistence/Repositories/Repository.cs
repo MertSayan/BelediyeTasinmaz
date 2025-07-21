@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Context;
+using System.Linq.Expressions;
 
 namespace Persistence.Repositories
 {
@@ -37,6 +38,16 @@ namespace Persistence.Repositories
         public async Task<List<T>> GetAllAsync()
         {
             return await _dbSet.ToListAsync();
+        }
+
+        public async Task<T> GetByFilterAsync(Expression<Func<T, bool>> filter, params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            foreach (var include in includes)
+                query = query.Include(include);
+
+            return await query.FirstOrDefaultAsync(filter);
         }
 
         public async Task<T> GetByIdAsync(int id)
