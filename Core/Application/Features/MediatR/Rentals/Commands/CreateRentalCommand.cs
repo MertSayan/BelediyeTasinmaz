@@ -11,7 +11,6 @@ namespace Application.Features.MediatR.Rentals.Commands
 {
     public class CreateRentalCommand:IRequest<Unit>
     {
-        public int RentalId { get; set; }
         public int PropertyId { get; set; }
         public string CitizenNationalId { get; set; }
         public string CitizenPhoneNumber { get; set; }
@@ -20,11 +19,10 @@ namespace Application.Features.MediatR.Rentals.Commands
         public DateTime EndDate { get; set; }
 
         public PaymentFrequency PaymentFrequency { get; set; } // Enum: Weekly, Monthly
-        public decimal PaymentAmount { get; set; }
+        public decimal TotalAmount { get; set; } 
         public string ContractFilePath { get; set; } // PDF dosya yolu
 
         public int CreatedByUserId { get; set; }
 
-        public DateTime CreatedAt { get; set; }
     }
 }

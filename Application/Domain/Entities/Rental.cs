@@ -21,7 +21,7 @@ namespace Domain.Entities
         public DateTime EndDate { get; set; }
 
         public PaymentFrequency PaymentFrequency { get; set; } // Enum: Weekly, Monthly
-        public decimal PaymentAmount { get; set; }
+        public decimal TotalAmount { get; set; } // Toplam kira tutarı
 
         public string ContractFilePath { get; set; } // PDF dosya yolu
 

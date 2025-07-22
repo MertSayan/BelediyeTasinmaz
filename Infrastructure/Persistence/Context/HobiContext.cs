@@ -38,6 +38,10 @@ namespace Persistence.Context
             modelBuilder.Entity<Property>()
             .Property(p => p.Status)
             .HasConversion<string>();
+
+            modelBuilder.Entity<Rental>()
+                .Property(p => p.PaymentFrequency)
+                .HasConversion<string>();
         }
 
     }

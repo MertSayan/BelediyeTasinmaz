@@ -1,13 +1,21 @@
 using Application.Features.MediatR.Users.Commands;
 using Application.Interfaces;
+using Application.Interfaces.PaymentInstallmentInterface;
+using Application.Interfaces.PropertyInterface;
+using Application.Interfaces.RentalInterface;
 using Application.Interfaces.TokenInterface;
+using Application.Interfaces.UserInterface;
 using Application.MapperProfiles;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Persistence.Context;
 using Persistence.Repositories;
+using Persistence.Repositories.PaymentInstallmentRepository;
+using Persistence.Repositories.PropertyRepository;
+using Persistence.Repositories.RentalRepository;
 using Persistence.Repositories.TokenRepository;
+using Persistence.Repositories.UserRepository;
 using System.Text;
 
 namespace API
@@ -51,6 +59,10 @@ namespace API
             builder.Services.AddScoped<HobiContext>();
             builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
             builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IPaymentInstallmentRepository, PaymentInstallmentRepository>();
+            builder.Services.AddScoped<IRentalRepository, RentalRepository>();
+            builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
 
 
 
