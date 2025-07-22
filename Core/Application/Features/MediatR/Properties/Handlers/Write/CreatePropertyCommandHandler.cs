@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Enums;
 using MediatR;
 
 namespace Application.Features.MediatR.Properties.Handlers.Write
@@ -21,6 +22,7 @@ namespace Application.Features.MediatR.Properties.Handlers.Write
         {
             var property=_mapper.Map<Property>(request);
             property.CreatedAt = DateTime.Now;
+            property.Status=PropertyStatus.Available;
             await _repository.AddAsync(property);
             return Unit.Value;
         }

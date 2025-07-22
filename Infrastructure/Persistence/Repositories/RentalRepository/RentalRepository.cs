@@ -19,6 +19,13 @@ namespace Persistence.Repositories.RentalRepository
             _context = context;
         }
 
+        public async Task<List<Rental>> GetAllRentalForBackgroundService()
+        {
+            return await _context.Rentals
+                .Include(r => r.Property)
+                .ToListAsync();
+        }
+
         public async Task<List<Rental>> GetRentalsWithFiltersAsync(PropertyType? type, string? region, string? citizenTc, DateTime? start, DateTime? end)
         {
             var query = _context.Rentals

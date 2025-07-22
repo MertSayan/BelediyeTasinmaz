@@ -29,7 +29,9 @@ namespace Application.Features.MediatR.Rentals.Handlers
             var property = await _propertyRepository.GetByIdAsync(request.PropertyId);
             if (property == null || property.Status == PropertyStatus.Rented)
                 throw new Exception(Messages<Property>.PropertyNotAvalible);
+
             var rental=_mapper.Map<Rental>(request);
+
             rental.CreatedAt = DateTime.Now;
             await _rentalRepository.AddAsync(rental);
             

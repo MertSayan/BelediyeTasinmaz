@@ -24,6 +24,7 @@ namespace Domain.Entities
         public int? UpdatedByUserId { get; set; }
         public User UpdatedByUser { get; set; }
 
+
         // Navigation
         public ICollection<Rental> Rentals { get; set; }
     }

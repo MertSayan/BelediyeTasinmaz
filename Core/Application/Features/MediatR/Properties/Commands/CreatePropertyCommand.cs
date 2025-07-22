@@ -11,7 +11,7 @@ namespace Application.Features.MediatR.Properties.Commands
         public double? SizeSqm { get; set; }   // Opsiyonel: m²
         public string Description { get; set; }
         //public DateTime CreatedAt { get; set; }
-        public PropertyStatus Status { get; set; } //enum
+        //public PropertyStatus Status { get; set; } //enum
         public int CreatedByUserId { get; set; }
     }
 }

@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
+using Persistence.BackgroundServices;
 using Persistence.Context;
 using Persistence.Repositories;
 using Persistence.Repositories.PaymentInstallmentRepository;
@@ -69,7 +70,7 @@ namespace API
             builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
 
 
-
+            builder.Services.AddHostedService<RentalStatusBackgroundService>(); //uygulama çalýþtýðý sürece servisi arka planda döndürecek.
 
             builder.Services.AddControllers();
             builder.Services.AddAuthorization();

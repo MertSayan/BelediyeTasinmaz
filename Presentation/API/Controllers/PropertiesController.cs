@@ -24,7 +24,7 @@ namespace API.Controllers
             await _mediator.Send(command);
             return Ok(Messages<Property>.EntityAdded);
         }
-        [HttpPut]
+        [HttpPut("Update")]
         public async Task<IActionResult> UpdateProperty(UpdatePropertyCommand command)
         {
             await _mediator.Send(command);
