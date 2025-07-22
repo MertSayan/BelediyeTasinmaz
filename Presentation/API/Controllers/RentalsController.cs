@@ -1,5 +1,6 @@
 ﻿using Application.Constans;
 using Application.Features.MediatR.Rentals.Commands;
+using Application.Features.MediatR.Rentals.Queries;
 using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,13 @@ namespace API.Controllers
         public RentalsController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetRentalsByFilter([FromQuery] GetRentalsQuery query)
+        {
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpPost]

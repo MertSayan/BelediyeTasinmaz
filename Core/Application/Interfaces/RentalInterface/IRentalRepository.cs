@@ -1,13 +1,10 @@
 ﻿using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.Enums;
 
 namespace Application.Interfaces.RentalInterface
 {
     public interface IRentalRepository:IRepository<Rental>
     {
+        Task<List<Rental>> GetRentalsWithFiltersAsync(PropertyType? type,string? region,string? citizenTc,DateTime? start,DateTime? end);
     }
 }

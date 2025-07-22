@@ -7,8 +7,11 @@ using Application.Interfaces.TokenInterface;
 using Application.Interfaces.UserInterface;
 using Application.MapperProfiles;
 using AutoMapper;
+using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Any;
+using Microsoft.OpenApi.Models;
 using Persistence.Context;
 using Persistence.Repositories;
 using Persistence.Repositories.PaymentInstallmentRepository;
@@ -16,6 +19,7 @@ using Persistence.Repositories.PropertyRepository;
 using Persistence.Repositories.RentalRepository;
 using Persistence.Repositories.TokenRepository;
 using Persistence.Repositories.UserRepository;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
 
 namespace API
@@ -72,7 +76,28 @@ namespace API
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                // Diðer Swagger ayarlarýn varsa onlarýn altýna ekle:
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+
+                // Enum'larý string olarak göster
+                c.UseInlineDefinitionsForEnums();
+                c.SchemaGeneratorOptions = new SchemaGeneratorOptions
+                {
+                    SchemaIdSelector = type => type.FullName
+                };
+
+                //PropertyType dýþýnda baþka enum'lar için c.MapType<YourEnum>() satýrlarýný çoðaltabilirsin.
+                c.MapType<PropertyType>(() => new OpenApiSchema
+                {
+                    Type = "string",
+                    Enum = Enum.GetNames(typeof(PropertyType))
+                               .Select(name => new OpenApiString(name))
+                               .Cast<IOpenApiAny>()
+                               .ToList()
+                });
+            });
 
             builder.Services.AddAutoMapper(typeof(PropertyProfile).Assembly);
 
