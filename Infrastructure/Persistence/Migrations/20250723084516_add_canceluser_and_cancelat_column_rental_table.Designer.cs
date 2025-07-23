@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Context;
 
@@ -11,9 +12,11 @@ using Persistence.Context;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(HobiContext))]
-    partial class HobiContextModelSnapshot : ModelSnapshot
+    [Migration("20250723084516_add_canceluser_and_cancelat_column_rental_table")]
+    partial class add_canceluser_and_cancelat_column_rental_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -115,10 +118,10 @@ namespace Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RentalId"));
 
-                    b.Property<DateTime?>("CancelAt")
+                    b.Property<DateTime>("CancelAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("CancelByUserId")
+                    b.Property<int>("CancelByUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("CitizenNationalId")
@@ -229,7 +232,9 @@ namespace Persistence.Migrations
                 {
                     b.HasOne("Domain.Entities.User", "CancelByUser")
                         .WithMany()
-                        .HasForeignKey("CancelByUserId");
+                        .HasForeignKey("CancelByUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Entities.User", "CreatedByUser")
                         .WithMany("RentalsCreated")

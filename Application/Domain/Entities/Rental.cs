@@ -29,7 +29,10 @@ namespace Domain.Entities
         public User CreatedByUser { get; set; }
 
         public DateTime CreatedAt { get; set; }
-
+        public bool IsActive { get; set; }
+        public int? CancelByUserId { get; set; }
+        public User CancelByUser { get; set; }
+        public DateTime? CancelAt { get; set; }
         // Navigation
         public ICollection<PaymentInstallment> PaymentInstallments { get; set; }
     }

@@ -33,6 +33,7 @@ namespace Application.Features.MediatR.Rentals.Handlers.Write
             var rental = _mapper.Map<Rental>(request);
 
             rental.CreatedAt = DateTime.Now;
+            rental.IsActive = true;
             await _rentalRepository.AddAsync(rental);
 
             property.Status = PropertyStatus.Rented;

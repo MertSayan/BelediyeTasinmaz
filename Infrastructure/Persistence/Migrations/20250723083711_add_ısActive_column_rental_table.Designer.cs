@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Context;
 
@@ -11,9 +12,11 @@ using Persistence.Context;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(HobiContext))]
-    partial class HobiContextModelSnapshot : ModelSnapshot
+    [Migration("20250723083711_add_ısActive_column_rental_table")]
+    partial class add_ısActive_column_rental_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -115,12 +118,6 @@ namespace Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RentalId"));
 
-                    b.Property<DateTime?>("CancelAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("CancelByUserId")
-                        .HasColumnType("int");
-
                     b.Property<string>("CitizenNationalId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -159,8 +156,6 @@ namespace Persistence.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("RentalId");
-
-                    b.HasIndex("CancelByUserId");
 
                     b.HasIndex("CreatedByUserId");
 
@@ -227,10 +222,6 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Rental", b =>
                 {
-                    b.HasOne("Domain.Entities.User", "CancelByUser")
-                        .WithMany()
-                        .HasForeignKey("CancelByUserId");
-
                     b.HasOne("Domain.Entities.User", "CreatedByUser")
                         .WithMany("RentalsCreated")
                         .HasForeignKey("CreatedByUserId")
@@ -242,8 +233,6 @@ namespace Persistence.Migrations
                         .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("CancelByUser");
 
                     b.Navigation("CreatedByUser");
 

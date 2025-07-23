@@ -18,25 +18,31 @@ namespace API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
+        [HttpGet("KiralamalarıGör")]
         public async Task<IActionResult> GetRentalsByFilter([FromQuery] GetRentalsQuery query)
         {
             var result = await _mediator.Send(query);
             return Ok(result);
         }
 
-        [HttpGet("RentalHistory")]
+        [HttpGet("KiralamaGeçmişi")]
         public async Task<IActionResult> GetRentalHistory(int propertyId)
         {
             var result = await _mediator.Send(new GetRentalHistoryByPropertyIdQuery(propertyId));
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("Kirala")]
         public async Task<IActionResult> CreateRental(CreateRentalCommand command)
         {
             await _mediator.Send(command);
             return Ok(Messages<Rental>.EntityAdded);
+        }
+        [HttpPut("Kiralamaİptali")]
+        public async Task<IActionResult> CancelRental(CancelRentalCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok(Messages<Rental>.RentalCancelled);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Application.Constans
         public static string EntityCantMatches => $"Email veya sifre uyusmuyor";
         public static string EntityCantGet => $"{EntityName} alanına ait veri bulunamadı.";
         public static string PasswordNotCorrect => $"Şifre Hatalı";
-
         public static string PropertyNotAvalible => $"Taşınmaz kiralamaya uygun değil";
+        public static string RentalCancelled=> $"Kiralama İptal Edildi , ödeme alınmayacak";
     }
 }
