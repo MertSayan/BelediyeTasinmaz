@@ -17,6 +17,9 @@ namespace Application.MapperProfiles
            .ForMember(dest => dest.Region, opt => opt.MapFrom(src => src.Property.Region))
            .ForMember(dest => dest.Installments, opt => opt.MapFrom(src => src.PaymentInstallments))
            .ForMember(dest => dest.CreatedEmployee, opt => opt.MapFrom(src => src.CreatedByUser.FullName));
+
+            CreateMap<Rental, GetRentalHistoryByPropertyIdResult>()
+           .ForMember(dest => dest.Installments, opt => opt.MapFrom(src => src.PaymentInstallments));
         }
     }
 }

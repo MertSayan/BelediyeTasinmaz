@@ -1,11 +1,6 @@
 ﻿using Application.Features.MediatR.Rentals.Results;
 using AutoMapper;
 using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.MapperProfiles
 {
@@ -14,6 +9,8 @@ namespace Application.MapperProfiles
         public PaymentInstallmentProfile()
         {
             CreateMap<PaymentInstallment, InstallmentDto>();
+            CreateMap<PaymentInstallment, PaymentInstallmentResult>();
+
 
         }
     }

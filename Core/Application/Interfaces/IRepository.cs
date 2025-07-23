@@ -15,5 +15,6 @@ namespace Application.Interfaces
         Task UpdateAsync (T entity);
         Task DeleteAsync (int id);
         Task<T> GetByFilterAsync(Expression<Func<T, bool>> filter, params Expression<Func<T, object>>[] includes);
+        Task<List<T>> ListByFilterAsync(Expression<Func<T, bool>> filter, params Expression<Func<T, object>>[] includes);
     }
 }

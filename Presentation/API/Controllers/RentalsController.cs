@@ -25,6 +25,13 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("RentalHistory")]
+        public async Task<IActionResult> GetRentalHistory(int propertyId)
+        {
+            var result = await _mediator.Send(new GetRentalHistoryByPropertyIdQuery(propertyId));
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateRental(CreateRentalCommand command)
         {

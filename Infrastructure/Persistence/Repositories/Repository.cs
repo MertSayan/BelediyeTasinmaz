@@ -50,6 +50,16 @@ namespace Persistence.Repositories
             return await query.FirstOrDefaultAsync(filter);
         }
 
+        public async Task<List<T>> ListByFilterAsync(Expression<Func<T, bool>> filter, params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            foreach (var include in includes)
+                query = query.Include(include);
+
+            return await query.Where(filter).ToListAsync();
+        }
+
         public async Task<T> GetByIdAsync(int id)
         {
             var entity= await _dbSet.FindAsync(id);
@@ -59,6 +69,8 @@ namespace Persistence.Repositories
             }
             throw new Exception(Messages<T>.EntityNotFound);
         }
+
+        
 
         public async Task UpdateAsync(T entity)
         {

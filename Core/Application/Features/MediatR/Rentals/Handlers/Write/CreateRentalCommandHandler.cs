@@ -8,7 +8,7 @@ using Domain.Entities;
 using Domain.Enums;
 using MediatR;
 
-namespace Application.Features.MediatR.Rentals.Handlers
+namespace Application.Features.MediatR.Rentals.Handlers.Write
 {
     public class CreateRentalCommandHandler : IRequestHandler<CreateRentalCommand, Unit>
     {
@@ -30,11 +30,11 @@ namespace Application.Features.MediatR.Rentals.Handlers
             if (property == null || property.Status == PropertyStatus.Rented)
                 throw new Exception(Messages<Property>.PropertyNotAvalible);
 
-            var rental=_mapper.Map<Rental>(request);
+            var rental = _mapper.Map<Rental>(request);
 
             rental.CreatedAt = DateTime.Now;
             await _rentalRepository.AddAsync(rental);
-            
+
             property.Status = PropertyStatus.Rented;
             await _propertyRepository.UpdateAsync(property);
 
