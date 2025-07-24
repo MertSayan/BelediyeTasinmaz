@@ -24,5 +24,6 @@ namespace Application.Features.MediatR.Rentals.Results
         public DateTime DueDate { get; set; }
         public decimal Amount { get; set; }
         public bool IsPaid { get; set; }
+        public string? Notes { get; set; }
     }
 }

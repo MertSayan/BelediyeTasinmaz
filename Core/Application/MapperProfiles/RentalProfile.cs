@@ -20,6 +20,12 @@ namespace Application.MapperProfiles
 
             CreateMap<Rental, GetRentalHistoryByPropertyIdResult>()
            .ForMember(dest => dest.Installments, opt => opt.MapFrom(src => src.PaymentInstallments));
+
+            CreateMap<Rental, GetActiveRentalsByCitizenIdQueryResult>()
+                .ForMember(dest => dest.PropertyName, opt => opt.MapFrom(src => src.Property.Name))
+                .ForMember(dest => dest.PropertyType, opt => opt.MapFrom(src => src.Property.Type.ToString()))
+                .ForMember(dest => dest.Region, opt => opt.MapFrom(src => src.Property.Region))
+                .ForMember(dest => dest.Installments, opt => opt.MapFrom(src => src.PaymentInstallments));
         }
     }
 }
