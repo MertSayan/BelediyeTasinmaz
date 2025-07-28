@@ -24,6 +24,12 @@ namespace API.Controllers
             var values = await _mediator.Send(query);
             return Ok(values);
         }
+        [HttpGet("GetById")]
+        public async Task<IActionResult> GetPropertyById(int id)
+        {
+            var value = await _mediator.Send(new GetPropertyByIdQuery(id));
+            return Ok(value);
+        }
 
         [HttpPost("Create")]
         public async Task<IActionResult> CreateProperty(CreatePropertyCommand command)

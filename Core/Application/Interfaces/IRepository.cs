@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -15,6 +16,9 @@ namespace Application.Interfaces
         Task UpdateAsync (T entity);
         Task DeleteAsync (int id);
         Task<T> GetByFilterAsync(Expression<Func<T, bool>> filter, params Expression<Func<T, object>>[] includes);
-        Task<List<T>> ListByFilterAsync(Expression<Func<T, bool>> filter, params Expression<Func<T, object>>[] includes);
+        Task<List<T>> ListByFilterAsync<TKey>(
+        Expression<Func<T, bool>> filter,
+        Expression<Func<T, TKey>>? orderByDescending = null,
+        params Expression<Func<T, object>>[] includes);
     }
 }

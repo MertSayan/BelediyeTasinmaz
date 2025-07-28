@@ -50,15 +50,55 @@ namespace Persistence.Repositories
             return await query.FirstOrDefaultAsync(filter);
         }
 
-        public async Task<List<T>> ListByFilterAsync(Expression<Func<T, bool>> filter, params Expression<Func<T, object>>[] includes)
+        public async Task<List<T>> ListByFilterAsync<TKey>(
+             Expression<Func<T, bool>> filter,
+             Expression<Func<T, TKey>>? orderByDescending = null,
+             params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _context.Set<T>();
 
             foreach (var include in includes)
                 query = query.Include(include);
 
-            return await query.Where(filter).ToListAsync();
+            query = query.Where(filter);
+
+            // Eğer sıralama verilmişse onu uygula
+            if (orderByDescending != null)
+            {
+                query = query.OrderByDescending(orderByDescending);
+            }
+            else
+            {
+                // Sıralama verilmemişse varsayılan olarak "CreatedAt" varsa ona göre sırala
+                var property = typeof(T).GetProperty("CreatedAt");
+                if (property != null)
+                {
+                    var parameter = Expression.Parameter(typeof(T), "x");
+                    var body = Expression.Property(parameter, property);
+                    var converted = Expression.Convert(body, typeof(object));
+                    var lambda = Expression.Lambda<Func<T, object>>(converted, parameter);
+                    query = query.OrderByDescending(lambda);
+                }
+                else
+                {
+                    // "CreatedAt" yoksa "Id" alanını dener
+                    property = typeof(T).GetProperty("Id");
+                    if (property != null)
+                    {
+                        var parameter = Expression.Parameter(typeof(T), "x");
+                        var body = Expression.Property(parameter, property);
+                        var converted = Expression.Convert(body, typeof(object));
+                        var lambda = Expression.Lambda<Func<T, object>>(converted, parameter);
+                        query = query.OrderByDescending(lambda);
+                    }
+                }
+            }
+
+            return await query.ToListAsync();
         }
+
+
+
 
         public async Task<T> GetByIdAsync(int id)
         {

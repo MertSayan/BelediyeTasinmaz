@@ -17,6 +17,8 @@ namespace Application.MapperProfiles
           .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()))
           .ForMember(dest => dest.CreatedByUserName, opt => opt.MapFrom(src => src.CreatedByUser.FullName))
           .ForMember(dest => dest.UpdatedByUserName, opt => opt.MapFrom(src => src.UpdatedByUser.FullName));
+
+            CreateMap<Property, GetPropertyByIdQueryResult>().ReverseMap();
             
         }
     }

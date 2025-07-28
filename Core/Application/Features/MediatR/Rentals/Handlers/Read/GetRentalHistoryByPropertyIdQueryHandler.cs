@@ -18,24 +18,12 @@ namespace Application.Features.MediatR.Rentals.Handlers.Read
 
         public async Task<List<GetRentalHistoryByPropertyIdResult>> Handle(GetRentalHistoryByPropertyIdQuery request, CancellationToken cancellationToken)
         {
-            var rentals = await _repository.ListByFilterAsync(r => r.PropertyId == request.PropertyId, r => r.PaymentInstallments);
+            var rentals = await _repository.ListByFilterAsync(
+                r => r.PropertyId == request.PropertyId,
+                r => r.CreatedAt, // CreatedAt'e göre azalan sırada
+                r => r.PaymentInstallments);
 
             return _mapper.Map<List<GetRentalHistoryByPropertyIdResult>>(rentals);
-
-            //var result = rentals.Select(r => new GetRentalHistoryByPropertyIdResult
-            //{
-            //    CitizenNationalId = r.CitizenNationalId,
-            //    StartDate = r.StartDate,
-            //    EndDate = r.EndDate,
-            //    Installments = r.PaymentInstallments.Select(i => new PaymentInstallmentResult
-            //    {
-            //        DueDate = i.DueDate,
-            //        Amount = i.Amount,
-            //        IsPaid = i.IsPaid
-            //    }).ToList()
-            //}).ToList();
-
-            //return result;
         }
     }
 }
