@@ -54,6 +54,17 @@ namespace API
                };
            });
 
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowReactApp", policy =>
+                {
+                    policy.WithOrigins("http://localhost:3000") // React burada çalýþýyor
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
+
             builder.Services.AddMediatR(cfg =>
             cfg.RegisterServicesFromAssembly(typeof(CreateUserCommand).Assembly));
 
@@ -90,14 +101,22 @@ namespace API
                 };
 
                 //PropertyType dýþýnda baþka enum'lar için c.MapType<YourEnum>() satýrlarýný çoðaltabilirsin.
-                c.MapType<PropertyType>(() => new OpenApiSchema
-                {
-                    Type = "string",
-                    Enum = Enum.GetNames(typeof(PropertyType))
-                               .Select(name => new OpenApiString(name))
-                               .Cast<IOpenApiAny>()
-                               .ToList()
-                });
+                //c.MapType<PropertyType>(()=> new OpenApiSchema
+                //{
+                //    Type = "string",
+                //    Enum = Enum.GetNames(typeof(PropertyType))
+                //               .Select(name => new OpenApiString(name))
+                //               .Cast<IOpenApiAny>()
+                //               .ToList()
+                //});
+                //c.MapType<PropertyStatus>(() => new OpenApiSchema
+                //{
+                //    Type="string",
+                //    Enum=Enum.GetNames(typeof(PropertyStatus))
+                //             .Select(name=>new OpenApiString(name))
+                //             .Cast<IOpenApiAny>()
+                //             .ToList()
+                //});
             });
 
             builder.Services.AddAutoMapper(typeof(PropertyProfile).Assembly);
@@ -111,6 +130,9 @@ namespace API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors("AllowReactApp");
+
 
             app.UseHttpsRedirection();
             app.UseAuthentication();

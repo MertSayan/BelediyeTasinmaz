@@ -1,8 +1,8 @@
 ﻿using Application.Constans;
 using Application.Features.MediatR.Properties.Commands;
+using Application.Features.MediatR.Properties.Queries;
 using Domain.Entities;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -16,6 +16,13 @@ namespace API.Controllers
         public PropertiesController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet("FiltreliListele")]
+        public async Task<IActionResult> GetAllProperty([FromQuery]GetAllPropertyByFilterQuery query)
+        {
+            var values = await _mediator.Send(query);
+            return Ok(values);
         }
 
         [HttpPost("Create")]
