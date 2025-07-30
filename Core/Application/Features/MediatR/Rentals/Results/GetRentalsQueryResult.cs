@@ -17,10 +17,12 @@ namespace Application.Features.MediatR.Rentals.Results
         public List<InstallmentDto> Installments { get; set; }
         public string CreatedEmployee {  get; set; }
 
-        public bool IsActive => DateTime.Now < EndDate;
+        //public bool IsActive => DateTime.Now < EndDate;
+        public bool IsActive { get; set; }
     }
     public class InstallmentDto
     {
+        public int PaymentInstallmentId { get; set; }
         public DateTime DueDate { get; set; }
         public decimal Amount { get; set; }
         public bool IsPaid { get; set; }

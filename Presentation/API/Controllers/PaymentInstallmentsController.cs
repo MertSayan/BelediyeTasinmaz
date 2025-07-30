@@ -1,6 +1,5 @@
 ﻿using Application.Features.MediatR.PaymentInstallments.Commands;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -16,7 +15,7 @@ namespace API.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> MarkAsPaid(MarkInstallmentAsPaidCommand command)
         {
             var result=await _mediator.Send(command);

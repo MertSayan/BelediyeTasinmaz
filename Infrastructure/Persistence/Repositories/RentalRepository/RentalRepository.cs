@@ -29,16 +29,18 @@ namespace Persistence.Repositories.RentalRepository
         public async Task<List<Rental>> GetRentalsWithFiltersAsync(PropertyType? type, string? region, string? citizenTc, DateTime? start, DateTime? end)
         {
             var query = _context.Rentals
-               .Include(r=>r.CreatedByUser)
-               .Include(r => r.Property)
-               .Include(r => r.PaymentInstallments)
-               .AsQueryable();
+                .Include(r => r.CreatedByUser)
+                .Include(r => r.Property)
+                .Include(r => r.PaymentInstallments)
+                .AsQueryable();
 
             if (type.HasValue)
                 query = query.Where(r => r.Property.Type == type.Value);
 
-            if (!string.IsNullOrEmpty(region))
-                query = query.Where(r => r.Property.Region.Contains(region));
+            if (!string.IsNullOrWhiteSpace(region))
+            {
+                query = query.Where(r => r.Property.Region.ToLower().Contains(region.ToLower()));
+            }
 
             if (!string.IsNullOrEmpty(citizenTc))
                 query = query.Where(r => r.CitizenNationalId == citizenTc);
@@ -51,5 +53,6 @@ namespace Persistence.Repositories.RentalRepository
 
             return await query.ToListAsync();
         }
+
     }
 }

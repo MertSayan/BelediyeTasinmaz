@@ -15,6 +15,7 @@ namespace Domain.Entities
         public Property Property { get; set; }
 
         public string CitizenNationalId { get; set; }
+        public string CitizenFullName { get; set; }
         public string CitizenPhoneNumber { get; set; }
 
         public DateTime StartDate { get; set; }

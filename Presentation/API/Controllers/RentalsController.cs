@@ -18,7 +18,7 @@ namespace API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("KiralamalarıGör")]
+        [HttpGet("KiralamalariGör")]
         public async Task<IActionResult> GetRentalsByFilter([FromQuery] GetRentalsQuery query)
         {
             var result = await _mediator.Send(query);
