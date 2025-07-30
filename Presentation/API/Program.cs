@@ -82,6 +82,7 @@ namespace API
 
 
             builder.Services.AddHostedService<RentalStatusBackgroundService>(); //uygulama çalýþtýðý sürece servisi arka planda döndürecek.
+            builder.Services.AddHostedService<PenaltyCalculatorService>();
 
             builder.Services.AddControllers();
             builder.Services.AddAuthorization();
