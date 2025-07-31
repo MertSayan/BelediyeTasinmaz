@@ -18,7 +18,8 @@ namespace Domain.Entities
         public User CreatedByUser { get; set; }
         public int? UpdatedByUserId { get; set; }
         public User UpdatedByUser { get; set; }
-
+        public string? BlockNumber { get; set; }  // Ada
+        public string? ParcelNumber { get; set; } // Parsel
 
         // Navigation
         public ICollection<Rental> Rentals { get; set; }

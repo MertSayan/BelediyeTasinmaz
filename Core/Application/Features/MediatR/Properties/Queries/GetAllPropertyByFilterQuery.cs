@@ -11,6 +11,8 @@ namespace Application.Features.MediatR.Properties.Queries
         public double? SizeSqm { get; set; }
         public PropertyStatus? PropertyStatus { get; set; }
         public string? Name { get; set; }
-        
+        public string? BlockNumber { get; set; }  
+        public string? ParcelNumber { get; set; } 
+
     }
 }

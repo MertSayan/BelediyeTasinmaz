@@ -13,5 +13,7 @@ namespace Application.Features.MediatR.Properties.Commands
         //public DateTime CreatedAt { get; set; }
         //public PropertyStatus Status { get; set; } //enum
         public int CreatedByUserId { get; set; }
+        public string BlockNumber { get; set; }  // Ada
+        public string ParcelNumber { get; set; } // Parsel
     }
 }

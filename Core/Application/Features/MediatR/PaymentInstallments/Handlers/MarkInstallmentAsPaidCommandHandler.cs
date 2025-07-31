@@ -21,14 +21,7 @@ namespace Application.Features.MediatR.PaymentInstallments.Handlers
 
             installment.IsPaid = true;
             installment.PaidAt = DateTime.Now;
-            if(installment.Notes != null)
-            {
-                installment.Notes = request.Notes;
-            }
-            else
-            {
-                installment.Notes = "Not Girilmedi";
-            }
+            installment.Notes=request.Notes;
 
             await _installmentRepository.UpdateAsync(installment);
             return true;

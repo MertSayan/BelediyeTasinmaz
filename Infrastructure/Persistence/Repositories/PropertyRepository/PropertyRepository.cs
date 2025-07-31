@@ -3,12 +3,6 @@ using Domain.Entities;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Context;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Persistence.Repositories.PropertyRepository
 {
@@ -20,7 +14,7 @@ namespace Persistence.Repositories.PropertyRepository
             _context = context;
         }
 
-        public async Task<List<Property>> GetPropertiesWithFiltersAsync(PropertyType? type, string? region, double? sizeSqm, PropertyStatus? status, string? name)
+        public async Task<List<Property>> GetPropertiesWithFiltersAsync(PropertyType? type, string? region, double? sizeSqm, PropertyStatus? status, string? name, string? blockNumber, string? parcelNumber)
         {
             var query = _context.Properties
                 .Include(x=>x.CreatedByUser)
@@ -41,6 +35,12 @@ namespace Persistence.Repositories.PropertyRepository
 
             if (!string.IsNullOrEmpty(name))
                 query = query.Where(r => r.Name.Contains(name));
+
+            if(!string.IsNullOrEmpty(blockNumber))
+                query=query.Where(r=>r.BlockNumber==blockNumber);
+
+            if(!string.IsNullOrEmpty(parcelNumber))
+                query=query.Where(r=>r.ParcelNumber==parcelNumber);
 
             return await query.ToListAsync();
         }

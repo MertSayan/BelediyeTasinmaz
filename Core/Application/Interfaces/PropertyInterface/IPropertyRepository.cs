@@ -10,6 +10,6 @@ namespace Application.Interfaces.PropertyInterface
 {
     public interface IPropertyRepository:IRepository<Property>
     {
-        Task<List<Property>> GetPropertiesWithFiltersAsync(PropertyType? type, string? region, double? sizeSqm, PropertyStatus? status,string? name);
+        Task<List<Property>> GetPropertiesWithFiltersAsync(PropertyType? type, string? region, double? sizeSqm, PropertyStatus? status,string? name,string? blockNumber,string? parcelNumber);
     }
 }

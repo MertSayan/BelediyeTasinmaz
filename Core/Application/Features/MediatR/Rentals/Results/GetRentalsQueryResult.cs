@@ -27,5 +27,6 @@ namespace Application.Features.MediatR.Rentals.Results
         public decimal Amount { get; set; }
         public bool IsPaid { get; set; }
         public string? Notes { get; set; }
+        public string TotalPenalty { get; set; }
     }
 }

@@ -11,5 +11,7 @@ namespace Application.Features.MediatR.Properties.Results
         public string Region { get; set; }     // Mahalle / semt / ilçe
         public double? SizeSqm { get; set; }   // Opsiyonel: m²
         public string Description { get; set; }
+        public string BlockNumber { get; set; }  // Ada
+        public string ParcelNumber { get; set; } // Parsel
     }
 }

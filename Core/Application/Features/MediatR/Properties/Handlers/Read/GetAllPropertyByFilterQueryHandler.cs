@@ -19,7 +19,7 @@ namespace Application.Features.MediatR.Properties.Handlers.Read
 
         public async Task<List<GetAllPropertyByFilterQueryResult>> Handle(GetAllPropertyByFilterQuery request, CancellationToken cancellationToken)
         {
-            var value = await _propertyRepository.GetPropertiesWithFiltersAsync(request.PropertyType,request.Region,request.SizeSqm,request.PropertyStatus,request.Name);
+            var value = await _propertyRepository.GetPropertiesWithFiltersAsync(request.PropertyType,request.Region,request.SizeSqm,request.PropertyStatus,request.Name,request.BlockNumber,request.ParcelNumber);
 
             return _mapper.Map<List<GetAllPropertyByFilterQueryResult>>(value);
         }

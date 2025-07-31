@@ -21,11 +21,11 @@ namespace Persistence.BackgroundServices
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                //var now = DateTime.Now;
-                //var nextRun = DateTime.Today.AddDays(1).AddHours(3); // Ertesi gün 03:00
-                //var delay = nextRun - now;
+                var now = DateTime.Now;
+                var nextRun = DateTime.Today.AddDays(1).AddHours(3); // Ertesi gün 03:00
+                var delay = nextRun - now;
 
-                //await Task.Delay(delay, stoppingToken);
+                await Task.Delay(delay, stoppingToken);
 
                 try
                 {
@@ -66,7 +66,7 @@ namespace Persistence.BackgroundServices
                 }
 
                 //test sırasında 1 defa çalışsın sonra çıksın
-                break;
+                //break;
             }
         }
     }

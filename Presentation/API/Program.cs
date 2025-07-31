@@ -6,11 +6,8 @@ using Application.Interfaces.RentalInterface;
 using Application.Interfaces.TokenInterface;
 using Application.Interfaces.UserInterface;
 using Application.MapperProfiles;
-using AutoMapper;
-using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Persistence.BackgroundServices;
 using Persistence.Context;
@@ -79,6 +76,7 @@ namespace API
             builder.Services.AddScoped<IPaymentInstallmentRepository, PaymentInstallmentRepository>();
             builder.Services.AddScoped<IRentalRepository, RentalRepository>();
             builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
+            builder.Services.AddScoped<IRentalStatisticRepository, RentalStatisticRepository>();
 
 
             builder.Services.AddHostedService<RentalStatusBackgroundService>(); //uygulama çalýþtýðý sürece servisi arka planda döndürecek.

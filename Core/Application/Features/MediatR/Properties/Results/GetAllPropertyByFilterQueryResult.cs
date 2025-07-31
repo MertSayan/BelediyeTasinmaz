@@ -15,5 +15,7 @@ namespace Application.Features.MediatR.Properties.Results
         public DateTime? UpdatedAt { get; set; }
         public string CreatedByUserName { get; set; }
         public string? UpdatedByUserName { get; set; }
+        public string BlockNumber { get; set; }  // Ada
+        public string ParcelNumber { get; set; } // Parsel
     }
 }
