@@ -1,9 +1,4 @@
 ﻿using Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
@@ -17,9 +12,14 @@ namespace Domain.Entities
 
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
         public PropertyStatus Status { get; set; }
         public int CreatedByUserId { get; set; }
         public User CreatedByUser { get; set; }
+        public int? UpdatedByUserId { get; set; }
+        public User UpdatedByUser { get; set; }
+        public string? BlockNumber { get; set; }  // Ada
+        public string? ParcelNumber { get; set; } // Parsel
 
         // Navigation
         public ICollection<Rental> Rentals { get; set; }

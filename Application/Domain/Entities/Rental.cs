@@ -15,13 +15,14 @@ namespace Domain.Entities
         public Property Property { get; set; }
 
         public string CitizenNationalId { get; set; }
+        public string CitizenFullName { get; set; }
         public string CitizenPhoneNumber { get; set; }
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
         public PaymentFrequency PaymentFrequency { get; set; } // Enum: Weekly, Monthly
-        public decimal PaymentAmount { get; set; }
+        public decimal TotalAmount { get; set; } // Toplam kira tutarı
 
         public string ContractFilePath { get; set; } // PDF dosya yolu
 
@@ -29,6 +30,11 @@ namespace Domain.Entities
         public User CreatedByUser { get; set; }
 
         public DateTime CreatedAt { get; set; }
+        public bool IsActive { get; set; }
+        public int? CancelByUserId { get; set; }
+        public User CancelByUser { get; set; }
+        public DateTime? CancelAt { get; set; }
+        public string? ReportPath { get; set; }  // PDF raporun kaydedildiği dosya yolu
 
         // Navigation
         public ICollection<PaymentInstallment> PaymentInstallments { get; set; }

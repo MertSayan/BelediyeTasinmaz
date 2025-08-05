@@ -42,11 +42,17 @@ namespace Persistence.Migrations
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("OverdueDays")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("PaidAt")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("RentalId")
                         .HasColumnType("int");
+
+                    b.Property<decimal?>("TotalPenalty")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("PaymentInstallmentId");
 
@@ -63,6 +69,9 @@ namespace Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PropertyId"));
 
+                    b.Property<string>("BlockNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -77,6 +86,9 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ParcelNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Region")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -84,15 +96,25 @@ namespace Persistence.Migrations
                     b.Property<double?>("SizeSqm")
                         .HasColumnType("float");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Type")
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("UpdatedByUserId")
                         .HasColumnType("int");
 
                     b.HasKey("PropertyId");
 
                     b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("UpdatedByUserId");
 
                     b.ToTable("Properties");
                 });
@@ -104,6 +126,16 @@ namespace Persistence.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RentalId"));
+
+                    b.Property<DateTime?>("CancelAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("CancelByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CitizenFullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CitizenNationalId")
                         .IsRequired()
@@ -126,19 +158,28 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("PaymentAmount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
-                    b.Property<int>("PaymentFrequency")
-                        .HasColumnType("int");
+                    b.Property<string>("PaymentFrequency")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PropertyId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ReportPath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("RentalId");
+
+                    b.HasIndex("CancelByUserId");
 
                     b.HasIndex("CreatedByUserId");
 
@@ -194,11 +235,21 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedByUserId");
+
                     b.Navigation("CreatedByUser");
+
+                    b.Navigation("UpdatedByUser");
                 });
 
             modelBuilder.Entity("Domain.Entities.Rental", b =>
                 {
+                    b.HasOne("Domain.Entities.User", "CancelByUser")
+                        .WithMany()
+                        .HasForeignKey("CancelByUserId");
+
                     b.HasOne("Domain.Entities.User", "CreatedByUser")
                         .WithMany("RentalsCreated")
                         .HasForeignKey("CreatedByUserId")
@@ -210,6 +261,8 @@ namespace Persistence.Migrations
                         .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("CancelByUser");
 
                     b.Navigation("CreatedByUser");
 

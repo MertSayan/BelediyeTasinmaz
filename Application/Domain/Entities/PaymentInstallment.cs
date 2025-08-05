@@ -13,5 +13,7 @@
         public DateTime? PaidAt { get; set; }
 
         public string? Notes { get; set; }
+        public int? OverdueDays { get; set; }
+        public decimal? TotalPenalty { get; set; }
     }
 }
