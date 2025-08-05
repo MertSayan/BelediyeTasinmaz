@@ -1,6 +1,7 @@
 ﻿using Application.Constans;
 using Application.Features.MediatR.Rentals.Commands;
 using Application.Features.MediatR.Rentals.Queries;
+using Azure.Core.Extensions;
 using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

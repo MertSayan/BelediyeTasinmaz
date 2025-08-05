@@ -117,5 +117,11 @@ namespace Persistence.Repositories
             _dbSet.Update(entity);
             await _context.SaveChangesAsync();
         }
+
+        public async Task UpdateRange(IEnumerable<T> entities)
+        {
+            _dbSet.UpdateRange(entities);
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -20,5 +20,8 @@ namespace Application.Interfaces
         Expression<Func<T, bool>> filter,
         Expression<Func<T, TKey>>? orderByDescending = null,
         params Expression<Func<T, object>>[] includes);
+
+        Task UpdateRange(IEnumerable<T> entities); //çoklu güncelleme
+
     }
 }
