@@ -26,7 +26,7 @@ namespace Persistence.Repositories.RentalRepository
                 .ToListAsync();
         }
 
-        public async Task<List<Rental>> GetRentalsWithFiltersAsync(PropertyType? type, string? region, string? citizenTc, DateTime? start, DateTime? end)
+        public async Task<List<Rental>> GetRentalsWithFiltersAsync(PropertyType? type, string? region, string? citizenTc, DateTime? start, DateTime? end, bool? isActive)
         {
             var query = _context.Rentals
                 .Include(r => r.CreatedByUser)
@@ -50,6 +50,9 @@ namespace Persistence.Repositories.RentalRepository
 
             if (end.HasValue)
                 query = query.Where(r => r.EndDate <= end.Value);
+
+            if (isActive.HasValue)
+                query = query.Where(r => r.IsActive == isActive.Value);
 
             return await query.ToListAsync();
         }

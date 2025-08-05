@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\MediatR\PaymentInstallments\Results\" />
     <Folder Include="Features\MediatR\PaymentInstallments\Queries\" />
+    <Folder Include="Features\MediatR\PaymentInstallments\Results\" />
     <Folder Include="Features\MediatR\Users\Handlers\Read\" />
     <Folder Include="Features\MediatR\Users\Queries\" />
     <Folder Include="Features\MediatR\Users\Results\" />

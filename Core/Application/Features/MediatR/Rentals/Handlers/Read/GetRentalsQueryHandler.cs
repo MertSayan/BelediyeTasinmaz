@@ -21,7 +21,7 @@ namespace Application.Features.MediatR.Rentals.Handlers.Read
         {
             var rentals = await _repository.GetRentalsWithFiltersAsync(
                           request.PropertyType, request.Region, request.CitizenNationalId,
-                          request.StartDate, request.EndDate);
+                          request.StartDate, request.EndDate,request.IsActive);
 
             return _mapper.Map<List<GetRentalsQueryResult>>(rentals);
         }

@@ -16,5 +16,6 @@ namespace Application.Features.MediatR.Rentals.Queries
         public string? CitizenNationalId { get; set; }
         public DateTime? StartDate { get; set; }  
         public DateTime? EndDate { get; set; }
+        public bool? IsActive { get; set; }
     }
 }

@@ -5,7 +5,7 @@ namespace Application.Interfaces.RentalInterface
 {
     public interface IRentalRepository:IRepository<Rental>
     {
-        Task<List<Rental>> GetRentalsWithFiltersAsync(PropertyType? type,string? region,string? citizenTc,DateTime? start,DateTime? end);
+        Task<List<Rental>> GetRentalsWithFiltersAsync(PropertyType? type,string? region,string? citizenTc,DateTime? start,DateTime? end,bool? isActive);
         Task<List<Rental>> GetAllRentalForBackgroundService();
 
         Task<Rental> GetRentalWithDetailsAsync(int rentalId); // Property + Installments

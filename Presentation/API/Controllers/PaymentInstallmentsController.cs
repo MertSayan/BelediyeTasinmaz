@@ -23,7 +23,7 @@ namespace API.Controllers
                 return NotFound("Installment not found or already paid");
             return Ok("Ödendi olarak işaretlendi");
         }
-        [HttpPut("YıllıkZam")]
+        [HttpPut("YillikZam")]
         public async Task<IActionResult> UpdateAmount(UpdatePaymentInstallmentCommand command)
         {
             await _mediator.Send(command);
