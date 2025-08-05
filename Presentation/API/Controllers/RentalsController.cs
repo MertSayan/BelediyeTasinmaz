@@ -51,5 +51,11 @@ namespace API.Controllers
             await _mediator.Send(command);
             return Ok(Messages<Rental>.RentalCancelled);
         }
+        [HttpPut("KiralamayıUzat")]
+        public async Task<IActionResult> UpdateEndDate(ExtendRentalCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok(Messages<Rental>.EntityUpdated);
+        }
     }
 }

@@ -27,12 +27,11 @@ namespace Persistence.Repositories
         public async Task DeleteAsync(int id)
         {
             var value = await _dbSet.FindAsync(id);
-            if (value != null)
-            {
-                _dbSet.Remove(value);
-                await _context.SaveChangesAsync();
-            }
-            throw new Exception();
+            if (value == null)
+                throw new Exception(Messages<T>.EntityNotFound); // istersen kendi NotFound mesajını kullan
+
+            _dbSet.Remove(value);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<List<T>> GetAllAsync()
