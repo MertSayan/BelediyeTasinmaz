@@ -10,7 +10,7 @@ namespace Application.Features.MediatR.Rentals.Results
         public string Region { get; set; }
         public string CitizenNationalId { get; set; }
         public string CitizenPhoneNumber { get; set; }
-
+        public string CitizenFullName { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
@@ -19,6 +19,7 @@ namespace Application.Features.MediatR.Rentals.Results
 
         //public bool IsActive => DateTime.Now < EndDate;
         public bool IsActive { get; set; }
+        public string ReportPath { get; set; }
     }
     public class InstallmentDto
     {

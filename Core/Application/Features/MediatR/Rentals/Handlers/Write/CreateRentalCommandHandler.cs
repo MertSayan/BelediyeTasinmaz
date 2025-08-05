@@ -16,12 +16,14 @@ namespace Application.Features.MediatR.Rentals.Handlers.Write
         private readonly IRentalRepository _rentalRepository;
         private readonly IPaymentInstallmentRepository _installmentRepository;
         private readonly IMapper _mapper;
-        public CreateRentalCommandHandler(IPropertyRepository propertyRepository, IRentalRepository rentalRepository, IMapper mapper, IPaymentInstallmentRepository installmentRepository)
+        private readonly IRentalReportService _rentalReportService;
+        public CreateRentalCommandHandler(IPropertyRepository propertyRepository, IRentalRepository rentalRepository, IMapper mapper, IPaymentInstallmentRepository installmentRepository, IRentalReportService rentalReportService)
         {
             _propertyRepository = propertyRepository;
             _rentalRepository = rentalRepository;
             _mapper = mapper;
             _installmentRepository = installmentRepository;
+            _rentalReportService = rentalReportService;
         }
 
         public async Task<Unit> Handle(CreateRentalCommand request, CancellationToken cancellationToken)
@@ -81,6 +83,8 @@ namespace Application.Features.MediatR.Rentals.Handlers.Write
             // Veritabanına taksitleri kaydet
             foreach (var installment in installments)
                 await _installmentRepository.AddAsync(installment);
+
+            await _rentalReportService.GenerateReportAsync(rental.RentalId);
 
             return Unit.Value;
         }

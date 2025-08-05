@@ -17,6 +17,7 @@ using Persistence.Repositories.PropertyRepository;
 using Persistence.Repositories.RentalRepository;
 using Persistence.Repositories.TokenRepository;
 using Persistence.Repositories.UserRepository;
+using QuestPDF.Infrastructure;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
 
@@ -67,7 +68,8 @@ namespace API
 
             builder.Services.Configure<DefaultUserSettings>(builder.Configuration.GetSection("DefaultUserSettings"));
 
-            
+            QuestPDF.Settings.License = LicenseType.Community;
+
 
             builder.Services.AddScoped<HobiContext>();
             builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
@@ -77,7 +79,7 @@ namespace API
             builder.Services.AddScoped<IRentalRepository, RentalRepository>();
             builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
             builder.Services.AddScoped<IRentalStatisticRepository, RentalStatisticRepository>();
-
+            builder.Services.AddScoped<IRentalReportService, RentalReportService>();
 
             builder.Services.AddHostedService<RentalStatusBackgroundService>(); //uygulama çalýþtýðý sürece servisi arka planda döndürecek.
             builder.Services.AddHostedService<PenaltyCalculatorService>();
@@ -136,6 +138,8 @@ namespace API
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseStaticFiles();
 
 
             app.MapControllers();

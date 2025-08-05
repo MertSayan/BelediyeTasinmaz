@@ -34,6 +34,8 @@ namespace Domain.Entities
         public int? CancelByUserId { get; set; }
         public User CancelByUser { get; set; }
         public DateTime? CancelAt { get; set; }
+        public string? ReportPath { get; set; }  // PDF raporun kaydedildiği dosya yolu
+
         // Navigation
         public ICollection<PaymentInstallment> PaymentInstallments { get; set; }
     }

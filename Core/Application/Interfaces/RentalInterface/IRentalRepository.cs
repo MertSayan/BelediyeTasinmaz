@@ -7,5 +7,8 @@ namespace Application.Interfaces.RentalInterface
     {
         Task<List<Rental>> GetRentalsWithFiltersAsync(PropertyType? type,string? region,string? citizenTc,DateTime? start,DateTime? end);
         Task<List<Rental>> GetAllRentalForBackgroundService();
+
+        Task<Rental> GetRentalWithDetailsAsync(int rentalId); // Property + Installments
+        Task UpdateReportPathAsync(int rentalId, string reportPath);
     }
 }

@@ -54,5 +54,23 @@ namespace Persistence.Repositories.RentalRepository
             return await query.ToListAsync();
         }
 
+        public async Task<Rental> GetRentalWithDetailsAsync(int rentalId)
+        {
+            return await _context.Rentals
+                .Include(r => r.Property)
+                .Include(r => r.PaymentInstallments)
+                .FirstOrDefaultAsync(r => r.RentalId == rentalId);
+        }
+
+        public async Task UpdateReportPathAsync(int rentalId, string reportPath)
+        {
+            var rental = await _context.Rentals.FindAsync(rentalId);
+            if (rental != null)
+            {
+                rental.ReportPath = reportPath;
+                await _context.SaveChangesAsync();
+            }
+        }
+
     }
 }
